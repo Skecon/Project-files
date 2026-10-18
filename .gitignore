@@ -1,0 +1,28 @@
+# Data: too large for GitHub, see data/README.md
+data/raw/*
+data/processed/*
+!data/README.md
+*.csv
+*.parquet
+*.zip
+
+# Model outputs (regenerate with the scripts)
+results/*
+!results/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
