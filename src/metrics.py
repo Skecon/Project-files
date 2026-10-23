@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-K_BINS = [-np.inf, -0.2, -0.05, 0.05, 0.2, np.inf]
+Z_BINS = [-np.inf, -0.4, -0.1, 0.1, 0.4, np.inf]
 T_BINS = [0, 0.25, 1, np.inf]
 
 def _err(y_true, y_pred):
@@ -18,10 +18,13 @@ def max_error(y_true, y_pred):
 
 def regional_rmse(df):
     """df needs columns k, T, iv_true, iv_pred.
-    Returns (rmse_table, count_table), each k-bucket x T-bucket, RMSE in vol points."""
-    k_b = pd.cut(df['k'], bins=K_BINS)
+    Rows: z = k/sqrt(T) buckets (deep OTM put .. deep OTM call). Cols: T buckets.
+    Returns (rmse_table, count_table), RMSE in vol points."""
+    z = df['k'] / np.sqrt(df['T'])
+    z_b = pd.cut(z, bins=Z_BINS)
     t_b = pd.cut(df['T'], bins=T_BINS)
-    g = df.groupby([k_b, t_b], observed=False)
+    g = df.groupby([z_b, t_b], observed=False)
     table = g.apply(lambda x: rmse(x['iv_true'], x['iv_pred']) if len(x) else np.nan).unstack()
     counts = g.size().unstack()
+    table.index.name = counts.index.name = 'z = k/sqrt(T)'
     return table, counts
