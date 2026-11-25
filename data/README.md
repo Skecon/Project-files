@@ -2,7 +2,8 @@
 
 The raw data is not stored in this repository (1.28 GB, over GitHub's file limit).
 
-**Source:** Kaggle, "SPY Option Chains Q1 2020 – Q4 2022" (end-of-day SPY option chains).
+**Source:** Kaggle, "SPY Option Chains Q1 2020 – Q4 2022" by kylegraupe (end-of-day SPY option
+chains): <https://www.kaggle.com/datasets/kylegraupe/spy-daily-eod-options-quotes-2020-2022>
 
 **Setup:** download the dataset from Kaggle, unzip it, and place the file here:
 
@@ -10,7 +11,8 @@ The raw data is not stored in this repository (1.28 GB, over GitHub's file limit
 data/raw/spy_2020_2022.csv
 ```
 
-Expected: 3,589,079 rows, 33 columns, quote dates 2020-01-02 to 2022-12-30 (758 dates).
+Expected: 3,589,079 rows, 33 columns, quote dates 2020-01-02 to 2022-12-30 (758 dates),
+1,279,073,052 bytes, SHA-256 `28a28c48af986f4aa6f140935e08d594ee7b2b6780142ee831a8797439e7f043`.
 
 ## Known issues
 

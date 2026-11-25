@@ -102,7 +102,8 @@ best compromise. Better IVs do not measurably improve one-day delta hedges.
 
 ## 3. Data pipeline (our main run) — every step
 
-Source: Kaggle "SPY Option Chains Q1 2020 – Q4 2022" (end-of-day; one snapshot per trading day).
+Source: Kaggle "SPY Option Chains Q1 2020 – Q4 2022" by kylegraupe (end-of-day; one snapshot per
+trading day): https://www.kaggle.com/datasets/kylegraupe/spy-daily-eod-options-quotes-2020-2022
 Raw: 3,589,079 rows × 33 columns, 1.28 GB; each row = one strike/expiry with call and put columns.
 
 | Step | What | Result |

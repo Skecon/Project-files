@@ -155,9 +155,10 @@ code runs ~16 days in parallel on the CPU instead.
 
 ## 5. Data
 
-**Source:** Kaggle dataset *"SPY Option Chains Q1 2020 – Q4 2022"* (public; end-of-day option chains
-of SPY, the S&P 500 ETF; one snapshot per trading day at 16:00). Download, unzip, and place the file
-at `data/raw/spy_2020_2022.csv`.
+**Source:** Kaggle dataset *"SPY Option Chains Q1 2020 – Q4 2022"* by kylegraupe (public;
+end-of-day option chains of SPY, the S&P 500 ETF; one snapshot per trading day at 16:00):
+<https://www.kaggle.com/datasets/kylegraupe/spy-daily-eod-options-quotes-2020-2022>
+Download, unzip, and place the file at `data/raw/spy_2020_2022.csv`.
 
 **Check you have the identical file:**
 

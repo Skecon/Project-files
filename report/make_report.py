@@ -218,7 +218,8 @@ P('Following the reconstruction literature (Ackerer et al., 2020; the 2026 SPY s
 
 # ------------------------------------------------------------------ 2 data
 H('2. Data')
-P('Source: "SPY Option Chains Q1 2020 – Q4 2022", a public Kaggle dataset of end-of-day option chains '
+P('Source: "SPY Option Chains Q1 2020 – Q4 2022" (kylegraupe), a public Kaggle dataset '
+  '(https://www.kaggle.com/datasets/kylegraupe/spy-daily-eod-options-quotes-2020-2022) of end-of-day option chains '
   'for SPY, the exchange-traded fund tracking the S&P 500. One snapshot per trading day; each row '
   'gives a strike and expiry with call and put bid, ask, last price, volume, bid/ask size, implied '
   'volatility and Greeks, plus the SPY price. The raw file has 3,589,079 rows × 33 columns (1.28 GB).')
