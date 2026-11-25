@@ -127,12 +127,12 @@ Project files/
 ├── results/                  ← one folder per model + sparsity.csv + run_log.txt (all included)
 └── report/
     ├── build_figures.py      ← results → report/tables/*.csv and report/figures/res_*.png
-    ├── make_report.py        ← tables + figures → Word report
+    ├── make_report.py        ← tables + figures → automatic draft report
     ├── make_handoff.py       ← package for the report writer (no raw data)
     ├── HANDOFF_CLAUDE.md     ← full written context of the project
     ├── figures/              ← fig_* (EDA, Phase 1) and res_* (results)
     ├── tables/               ← all result tables as CSV
-    └── Final_Report_updated.docx
+    └── Final_Report_updated.docx ← automatic draft report (superseded by the submitted Phase 2 report)
 ```
 
 ---
@@ -194,12 +194,12 @@ Run every command from the project folder (`Project files/`).
 
 | # | What | How | Creates | Time* | Check |
 |---|---|---|---|---|---|
-| 1 | Clean | run `notebooks/01_Cleaning.ipynb` | `data/processed/raw.parquet`, `options_long.parquet` | ~5 min | 749 days; 7,099,618 option rows |
-| 2 | Filter | run `notebooks/02_Filters.ipynb` | `data/processed/options_filtered.parquet` | ~2 min | 3,391,881 rows |
-| 3 | Features | run `notebooks/03_Features.ipynb` | `data/processed/options_features.parquet` | ~3 min | 2,017,522 rows, 749 days |
+| 1 | Clean | run `notebooks/01_Cleaning.ipynb` | `data/processed/raw.parquet`, `options_long.parquet` | ~1 min | 749 days; 7,099,618 option rows |
+| 2 | Filter | run `notebooks/02_Filters.ipynb` | `data/processed/options_filtered.parquet` | ~30 s | 3,391,881 rows |
+| 3 | Features | run `notebooks/03_Features.ipynb` | `data/processed/options_features.parquet` | ~20 s | 2,017,522 rows, 749 days |
 | 4 | All models | `python -m src.run_all` | `data/processed/ml_train_table.parquet`, `results/<model>/`, `results/sparsity.csv`, `results/run_log.txt` | ~5–6 h | log ends with `all done` |
 | 5 | Tables & figures | `python report/build_figures.py` | `report/tables/*.csv`, `report/figures/res_*.png` | ~5 min | 11 tables, 7 result figures |
-| 6 | Report | `python report/make_report.py` | `report/Final_Report.docx` | seconds | — |
+| 6 | Draft report | `python report/make_report.py` | `report/Final_Report.docx`: an automatically generated draft with the same tables (the submitted Phase 2 report was written by the team from these results) | seconds | — |
 | 7 | (optional) notebooks | run `05_Models.ipynb`, `06_Analysis.ipynb` | executed notebooks | ~3 min / ~1 min | — |
 
 \*On the 10-core laptop above. Step 4 detail (16 parallel workers): mean 11 s · linear 22 s ·
