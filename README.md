@@ -11,6 +11,8 @@ Theme: *Risk and Stability of Markets*
 This repository contains everything needed to reproduce every number, table and figure of the
 final report, from the raw Kaggle file to the Word report.
 
+**Online:** <https://github.com/Skecon/Project-files> — all code and all results, including the prediction files.
+
 ---
 
 ## Contents
@@ -145,7 +147,6 @@ pyarrow 25.0 · joblib 1.5.3.
 python -m venv .venv
 .venv\Scripts\activate          # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
-pip install python-docx         # only needed for report/make_report.py
 ```
 
 About **16 GB RAM** is enough. A GPU is not needed: models are small and fitted per day, and the
@@ -396,8 +397,16 @@ All of these are included in the repository. Also: `results/sparsity.csv` (sweep
 - **GP subsample:** seeded by date. **Neural net:** `torch.manual_seed` from the date.
 - **XGBoost:** deterministic given the data (`tree_method='hist'`).
 - **Walk-forward:** a model tested in month *m* has seen only days before the first day of *m*.
-- With the same package versions, re-running gives the same results up to tiny floating-point
-  differences from optimisers and parallel execution (well below the reported precision).
+- **Tested from a clean copy:** notebooks 01–03 rebuild `options_features.parquet` with every value
+  identical to the file the results were computed on, and re-running the models on sample days
+  reproduces the submitted daily scores.
+- **Number of parallel workers.** SVI and the neural network use numerical optimisers whose last
+  digits depend on how many CPU threads each parallel worker gets. The results were produced with
+  16 workers (`n_jobs=-1` on a 16-thread CPU); with 16 workers a re-run matches them exactly.
+  With a different number of workers a few days can differ for these two models (in our test by
+  up to 0.17 vol points on one day). To match exactly on another machine, pass `n_jobs=16` to
+  `run_experiment` in `src/run_all.py`. Linear interpolation, the GP, SSVI and XGBoost reproduce
+  exactly or to within 0.02 vol points with any worker count.
 
 ---
 
@@ -421,7 +430,7 @@ All of these are included in the repository. Also: `results/sparsity.csv` (sweep
 - One underlying, three unusually turbulent years.
 - XGBoost and neural-network settings were chosen by hand, not tuned on a validation set
   (nested walk-forward tuning is future work); one random mask draw per day.
-- In March 2020 the learned models had only 41 days of history.
+- In March 2020 the learned models had only 40 days of history.
 - Arbitrage is checked on a finite grid; the hedging test ignores discounting and costs.
 
 An independent team run of the GP and neural network with harsher masks (30% random, 30% of expiries,
