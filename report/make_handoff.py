@@ -93,6 +93,8 @@ for f in ['config.yaml', 'README.md', 'requirements.txt']:
     cp(os.path.join(ROOT, f), os.path.join(code, f))
 for f in ['build_figures.py', 'make_report.py']:
     cp(os.path.join(ROOT, 'report', f), os.path.join(code, 'report', f))
+for f in ['05_Models.ipynb', '06_Analysis.ipynb']:            # executed, with plots and outputs
+    cp(os.path.join(ROOT, 'notebooks', f), os.path.join(code, 'notebooks', f))
 
 # ---- CLAUDE.md
 cp(os.path.join(ROOT, 'report', 'HANDOFF_CLAUDE.md'), os.path.join(OUT, 'CLAUDE.md'))

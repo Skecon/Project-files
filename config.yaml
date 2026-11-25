@@ -1,9 +1,11 @@
-# Shared settings for all scripts. Change values here, not inside the code.
+# Settings used for every result in this project (documentation).
+# The code does not read this file: each value is set in the module named in the comment.
+# Change it there and re-run; keep this file in sync.
 
 data:
-  raw_csv: data/raw/spy_2020_2022.csv
+  raw_csv: data/raw/spy_2020_2022.csv           # notebooks/01_Cleaning.ipynb
   processed_dir: data/processed
-  drop_dates:            # 2022 NYSE holidays present in the raw file
+  drop_dates:            # 2022 NYSE holidays present in the raw file (01_Cleaning)
     - 2022-01-17
     - 2022-02-21
     - 2022-04-15
@@ -14,28 +16,39 @@ data:
     - 2022-11-24
     - 2022-12-26
 
-filters:
-  min_volume: 1
-  max_rel_spread: 0.5
+filters:                 # notebooks/02_Filters.ipynb and 03_Features.ipynb
+  min_volume: 1          # traded that day
+  min_bid: 0.0           # bid must be > 0
+  ask_above_bid: true    # no crossed quotes
+  max_rel_spread: 0.5    # (ask - bid) / mid
   iv_min: 0.01
   iv_max: 2.0
-  max_abs_log_moneyness: 1.0
   min_dte: 7
-  otm_only: true
+  forward_band: 0.05     # |K/S - 1| for put-call-parity forward fit, >= 3 pairs
+  otm_only: true         # puts with k < 0, calls with k >= 0, k = ln(K/F)
+  max_abs_log_moneyness: 1.0
 
-masking:
-  random_fraction: 0.2
-  wing_fraction: 0.2
-  schemes: [random, wing, expiry]
+masking:                 # src/masking.py, src/experiment.py
+  random_fraction: 0.20  # per expiry
+  wing_fraction_per_side: 0.10
+  expiry: one interior expiry (never the shortest or longest)
+  min_visible_per_expiry: 5
+  test_seed: 0           # seed = YYYYMMDD + test_seed  -> same hidden quotes for every model
+  train_seed: 1          # masks of past days used to train XGBoost (src/ml_features.py)
+  sparsity_fractions: [0.1, 0.3, 0.5, 0.7, 0.9]   # every 10th test day (src/run_all.py)
 
-split:
-  first_test_month: 2020-07
-  retrain: monthly
+split:                   # src/evaluate.py, src/run_all.py
+  first_test_day: 2020-03-01
+  last_test_day: 2022-12-30
+  retrain: monthly       # learned models use all days before the test month
 
-regimes:
+regimes:                 # src/regimes.py
   covid_crash: [2020-02-20, 2020-04-30]
   recovery:    [2020-05-01, 2020-12-31]
-  calm:        [2021-01-01, 2021-12-31]
-  bear:        [2022-01-01, 2022-12-31]
+  calm_2021:   [2021-01-01, 2021-12-31]
+  bear_2022:   [2022-01-01, 2022-12-31]
 
-seed: 42
+statistics:              # src/stats.py
+  diebold_mariano_newey_west_lags: 5
+  bootstrap_block_days: 10
+  bootstrap_resamples: 1000   # report/build_figures.py

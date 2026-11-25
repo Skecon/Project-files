@@ -311,6 +311,13 @@ p-values > 0.05 because a few crisis days dominate squared errors; win rates 60�
 **Regimes** (`regime_*.csv`), wing mask: COVID crash — M2 2.99 vs SVI 4.36 (best), NN 3.51,
 M1a 7.39 (worse than SVI!); 2021 — M2 0.74 vs SVI 2.96; 2022 — M1a 1.35 best, M2 1.56, SVI 3.93.
 Random mask in the crash: linear 0.59 best, GP 0.67, SVI 1.23, M2 1.35, M1a 4.31.
+**Single crash day, 16 March 2020 (SPY −11%)** — RMSE on that day (notebook 05): random mask —
+linear 1.07, XGB-on-linear 1.62, NN 1.71, SVI 2.57, GP 3.00, XGB-on-SVI 3.31, SSVI 3.65,
+**XGB direct 22.7**; wing mask — NN 5.23, XGB-on-linear 6.66, linear 6.68, GP 6.76, XGB-on-SVI 8.69,
+SVI 10.03, **XGB direct 28.8**. Direct XGBoost, trained only on calm Jan–Feb 2020, cannot output IV
+levels it never saw (trees cannot extrapolate beyond training targets); models that *correct a
+same-day fit* (residual XGBoost, NN on SSVI prior) stay reasonable. A strong concrete example of
+why residual learning matters under regime shifts.
 *Interpretation:* learned models trained on only two calm months failed to anticipate crash-shaped
 surfaces in March 2020; per-day models adapt instantly. Recommend combining both or retraining more
 often in turbulent markets.
@@ -418,6 +425,8 @@ hedging test ignores discounting and transaction costs.
 | `results/sparsity.csv`, `results/run_log.txt` | sparsity sweep; run log with timings |
 | `figures/` | Phase 1 EDA figures (`fig_*`) and result figures (`res_*`) |
 | `code/` | full model and evaluation code (reference for explaining implementation), config, README |
+| `code/notebooks/05_Models.ipynb` | executed: every model on the 16 Mar 2020 crash day (tables, smile plots, GP uncertainty band, XGBoost feature importance) |
+| `code/notebooks/06_Analysis.ipynb` | executed: full analysis of all results (tables and plots) |
 
 To make new figures, use the CSVs above with pandas/matplotlib. The scripts in `code/report/` need
 the full dataset and are included only as a reference for how the existing figures were made.
