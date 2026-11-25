@@ -6,9 +6,15 @@ data/processed/*
 *.parquet
 *.zip
 
-# Model outputs (regenerate with the scripts)
-results/*
-!results/.gitkeep
+# Model outputs and report tables ARE committed (each file < 20 MB);
+# only scratch logs are ignored
+!results/**/*.csv
+!results/**/*.parquet
+!results/*.csv
+!report/tables/*.csv
+results/run_stdout.txt
+results/run_stderr.txt
+results/exec_*.log
 
 # Python
 __pycache__/

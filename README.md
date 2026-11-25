@@ -122,7 +122,7 @@ Project files/
 │       ├── xgb.py            ← M1a / M1b / M2 XGBoost
 │       ├── gp.py             ← M3 Gaussian process
 │       └── nn.py             ← M4 / M4' neural network (with / without penalty)
-├── results/                  ← one folder per model + sparsity.csv + run_log.txt (not in git)
+├── results/                  ← one folder per model + sparsity.csv + run_log.txt (all included)
 └── report/
     ├── build_figures.py      ← results → report/tables/*.csv and report/figures/res_*.png
     ├── make_report.py        ← tables + figures → Word report
@@ -183,7 +183,9 @@ are in [data/README.md](data/README.md).
 ## 6. Reproducing the results
 
 ### Quick path — results already computed
-If `results/` is present (it is not in git because of its size), skip to step 4.
+All model results are included in `results/` (162 MB). To rebuild the tables, figures and
+report from them, only step 5 needs the processed data; to explore the results directly,
+open `notebooks/06_Analysis.ipynb` or read `results/<model>/scores.csv` and `preds.parquet`.
 
 ### Full path (from the raw file)
 
@@ -381,7 +383,8 @@ Each `results/<model>/` folder contains:
 | `summary_by_regime.csv` | mean RMSE per regime × mask |
 | `regional_<mask>.csv` | RMSE by moneyness × maturity bucket |
 
-Also: `results/sparsity.csv` (sweep), `results/run_log.txt` (timings and summary per model),
+All of these are included in the repository. Also: `results/sparsity.csv` (sweep),
+`results/run_log.txt` (timings and summary per model),
 `report/tables/*.csv` (all report tables), `report/figures/res_*.png` (result figures).
 
 ---

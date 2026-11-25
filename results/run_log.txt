@@ -1,0 +1,24 @@
+2026-11-25 15:05:17  data (2017522, 31), 709 test days
+2026-11-25 15:05:28  mean: 11s  rmse by mask {'expiry': 10.96, 'random': 11.67, 'wing': 20.37}
+2026-11-25 15:05:50  linear: 22s  rmse by mask {'expiry': 0.46, 'random': 0.35, 'wing': 5.16}
+2026-11-25 15:37:25  svi: 1895s  rmse by mask {'expiry': 0.86, 'random': 0.67, 'wing': 3.53}
+2026-11-25 15:38:46  ssvi: 81s  rmse by mask {'expiry': 1.57, 'random': 1.65, 'wing': 4.12}
+2026-11-25 15:42:10  xgb: 204s  rmse by mask {'expiry': 0.71, 'random': 0.68, 'wing': 1.6}
+2026-11-25 15:44:04  data (2017522, 31), 709 test days
+2026-11-25 15:44:04  mean: already done, skipped
+2026-11-25 15:44:04  linear: already done, skipped
+2026-11-25 15:44:04  svi: already done, skipped
+2026-11-25 15:44:04  ssvi: already done, skipped
+2026-11-25 15:44:04  xgb: already done, skipped
+2026-11-25 15:47:26  xgb_lin: 202s  rmse by mask {'expiry': 0.5, 'random': 0.37, 'wing': 1.51}
+2026-11-25 16:31:56  xgb_svi: 2670s  rmse by mask {'expiry': 0.57, 'random': 0.4, 'wing': 1.25}
+2026-11-25 17:25:51  gp: 3235s  rmse by mask {'expiry': 0.63, 'random': 0.41, 'wing': 3.26}
+2026-11-25 18:04:01  nn: 2290s  rmse by mask {'expiry': 0.68, 'random': 0.66, 'wing': 2.01}
+2026-11-25 18:08:57  nn_nopen: 297s  rmse by mask {'expiry': 0.68, 'random': 0.66, 'wing': 1.97}
+2026-11-25 18:08:59  sparsity linear: 1s
+2026-11-25 18:12:24  sparsity svi: 206s
+2026-11-25 18:12:44  sparsity ssvi: 20s
+2026-11-25 18:22:59  sparsity xgb_svi: 615s
+2026-11-25 18:27:17  sparsity gp: 258s
+2026-11-25 18:32:54  sparsity nn: 337s
+2026-11-25 18:32:54  all done
