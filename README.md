@@ -41,6 +41,41 @@ pip install -r requirements.txt
 
 Then place the data file as described in [data/README.md](data/README.md).
 
+## Reproducing every result
+
+Run from this folder, in order:
+
+| Step | Command | Output | Time (10-core laptop) |
+|---|---|---|---|
+| 1. Clean and filter | run `notebooks/01_Cleaning.ipynb`, then `02_Filters.ipynb` | `data/processed/options_filtered.parquet` | ~5 min |
+| 2. Features | run `notebooks/03_Features.ipynb` | `data/processed/options_features.parquet` | ~2 min |
+| 3. All models | `python -m src.run_all` | `results/<model>/`, `results/sparsity.csv` | ~5 h (resumable) |
+| 4. Figures and tables | `python report/build_figures.py` | `report/figures/`, `report/tables/` | ~3 min |
+| 5. Report | `python report/make_report.py` | `report/Final_Report.docx` | seconds |
+
+`notebooks/04_Evaluation.ipynb` builds and tests the evaluation framework, `05_Models.ipynb`
+demonstrates every model on the 16 March 2020 crash day, and `06_Analysis.ipynb` contains the full
+analysis of the saved results.
+
+Step 3 first builds `data/processed/ml_train_table.parquet` (masked training examples for the
+XGBoost models, ~10 min) and skips any model whose results already exist.
+
+## Code map
+
+| File | Purpose |
+|---|---|
+| `src/masking.py` | random, wing and whole-expiry masks (seeded by date) |
+| `src/evaluate.py` | walk-forward evaluation loop; monthly training of learned models |
+| `src/experiment.py` | runs one model on all masks and saves results |
+| `src/run_all.py` | runs every model and the sparsity sweep |
+| `src/metrics.py` | RMSE, MAE, max error, regional RMSE (vol points) |
+| `src/arbitrage.py` | butterfly and calendar no-arbitrage checks |
+| `src/stats.py` | Diebold–Mariano test, block bootstrap, comparison against SVI |
+| `src/hedging.py` | one-day delta-hedging test |
+| `src/ml_features.py` | features for learned models, computed from visible quotes only |
+| `src/regimes.py` | market regimes (COVID crash, recovery, 2021, 2022) |
+| `src/models/` | `dummy.py` (mean), `interp.py` (linear), `svi.py`, `ssvi.py`, `xgb.py` (3 variants), `gp.py`, `nn.py` (with and without penalty) |
+
 ## Working together
 
 - Create a branch for your work (`git checkout -b your-feature`), commit there, and open a pull
